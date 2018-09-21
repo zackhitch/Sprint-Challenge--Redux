@@ -4,7 +4,6 @@
 * We also have some more reps for you to help hammer in the knowledge you've thus far learned.
 * Answers to your written questions will be recorded in _Answers.md_
 * This is to be worked on alone but you can use outside resources. You can _reference_ any old code you may have, and the React Documentation, however, please refrain from copying and pasting any of your answers. Try and understand the question and put your responses in your own words. Be as thorough as possible when explaining something.
-* **Just a friendly Reminder** Don't fret or get anxious about this, this is a no-pressure assessment that is only going to help guide you here in the near future. This is NOT a pass/fail situation.
 
 ## Start by forking and cloning this repository.
 
@@ -51,21 +50,34 @@ src
 * To retrieve an array all the smurfs in the Smurf DB simply write a get to the endpoint `'/smurfs'`.
 * Because `Redux-Thunk` is wired up as a middleware for this project. Be sure to utilize thunks when appropriate:
 
-```
-return (dispatch) => {
-  dipsatch({type: FOO_ACTION_TYPE});
-  promise.then(({data}) => {
-    dispatch({type: ANOTHER_ACTION_TYPE, payload: data});
+```js
+return dispatch => {
+  dispatch({ type: FOO_ACTION_TYPE });
+  promise.then(({ data }) => {
+    dispatch({ type: ANOTHER_ACTION_TYPE, payload: data });
   });
 };
 ```
 
+* Your response from the server should be an array of smurfs.
+
+```js
+[
+  {
+    name: 'Brainey',
+    age: 200,
+    height: '5cm',
+    id: 0
+  }
+];
+```
+
 ### POST '/smurfs'
 
-* To add a smurf to the Smurf DB you'll need all three fields.
+* To add a smurf to the Smurf DB you'll need all three fields. `name`, `age`, and `height`.
 * Example:
 
-```
+```js
 {
   name: 'Brainey',
   age: 200,
@@ -74,24 +86,25 @@ return (dispatch) => {
 ```
 
 * If a smurf is created correctly, you should see a response that is an array of smurfs with uniqe id's assigned to each smurf.
+* Initially Brainey will be in the array, but it takes more than one smurf to make the village. Be sure to add a few smurfs to populate our smurf village.
 * **HINT** if you are going to be working on Stretch Problem, you'll need to use that unique `id`.
 * Example of object created in Smurf DB:
 
-```
+```js
 [
-    {
-        "name": "Brainey",
-        "age": 200,
-        "height": "5cm",
-        "id": 0
-    },
-    {
-        "name": "Sleepy",
-        "age": 200,
-        "height": "5cm",
-        "id": 1
-    }
-]
+  {
+    name: 'Brainey',
+    age: 200,
+    height: '5cm',
+    id: 0
+  },
+  {
+    name: 'Sleepy',
+    age: 200,
+    height: '5cm',
+    id: 1
+  }
+];
 ```
 
 ## STRETCH PROBLEM
@@ -103,36 +116,44 @@ return (dispatch) => {
 * For this endpoint to work, you'll need an `id` added to the URL, and at least one field to update on the Smurf object. `name` `age` `height`.
 * Example:
 
-```
+```js
 input:
 {
   id: 1,
-  name: Sleepy
+  name: 'Grumpy'
 }
 output:
-{
-  name: 'Sleepy',
-  age: 30,
-  height: '3cm,
-  id: 1
-}
+[
+  {
+    name: 'Grumpy',
+    age: 30,
+    height: '3cm',
+    id: 1
+  },
+  {
+    name: 'Sleepy',
+    age: 211,
+    height: '2cm',
+    id: 0
+  }
+]
 ```
 
 ### DELETE '/smurfs/123', where 123 is the Id of the smurf you want to remove
 
 * For this endpoint to work, all you need is an id sent up as part of the request url.
 
-* If your delete worked, you'll get a success object back.
+* If your delete worked, you'll get a an array back with all of the smurfs but with your requested smurf removed.
+* You don't need any input beyond the url parameter of the smurf, so if we send up a delete request to `/smurfs/123` then you'll remove the smurf by that id.
 * Example:
 
-```
-output:
-{
-    "SmurfRemoved": {
-        "name": "Sleepy",
-        "age": 200,
-        "height": "5cm",
-        "id": 1
-    }
-}
+```js
+output: [
+  {
+    name: 'Sleepy',
+    age: 200,
+    height: '5cm',
+    id: 1
+  }
+];
 ```
