@@ -13,7 +13,7 @@ class SmurfForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleAddFriend = () => {
+  handleAddSmurf = () => {
     const { name, age, height } = this.state;
     this.props.postSmurf({ name, age, height });
     this.setState({ name: '', age: '', height: '' });
